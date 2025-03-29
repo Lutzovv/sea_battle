@@ -2,8 +2,26 @@
 #ifndef _FIELD_HPP_
 #define _FIELD_HPP_
 
-class Field {
+#include <cstdlib>
+#include <iostream>
+#include "Ship.hpp"
 
+class Field {
+public:
+	Field(int size);
+
+	void GenerateShips();
+	void ClearField();
+
+	Cell& operator()(int y, int x);
+
+private:
+	int size_;
+	std::vector<Ship> ships_;
+	std::vector<std::vector<Cell>> field_;
+	bool is_ships_destroy_;
+
+	bool CanPlaceShip(int x, int y, int size, bool is_vertical) const;
 };
 
 #endif // !_FIELD_HPP_
