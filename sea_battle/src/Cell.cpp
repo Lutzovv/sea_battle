@@ -5,6 +5,16 @@ Cell::CellStatus Cell::GetCellStatus() const {
 }
 
 
+int Cell::GetX() const {
+	return x_;
+}
+
+
+int Cell::GetY() const {
+	return y_;
+}
+
+
 void Cell::SetCellStatus(CellStatus status) {
 	status_ = status;
 }

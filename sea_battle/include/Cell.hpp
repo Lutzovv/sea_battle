@@ -19,6 +19,8 @@ public:
 	}
 	Cell(int x, int y, CellStatus status) : x_(x), y_(y), status_(status) {}
 
+	int GetX() const;
+	int GetY() const;
 	CellStatus GetCellStatus() const;
 	void SetCellStatus(CellStatus status_);
 

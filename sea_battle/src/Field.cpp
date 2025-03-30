@@ -13,29 +13,59 @@ Field::Field(int size) {
 
 
 void Field::GenerateShips() {
-	srand(time(NULL));
-	int ships[9] = { 4, 3, 3, 2, 2, 1, 1, 1, 1 };
-	const int max_attempts = 100;
+    srand(time(NULL));
 
-	for (int i : ships) {
-		bool placed = false;
-		int attempts = 0;
+    std::vector<int> ships = { 4, 3, 3, 2, 2, 2, 1, 1, 1, 1 };
+    const int max_attempts = 1000;
 
-		while (!placed && attempts < max_attempts) {
-			attempts++;
+    std::sort(ships.begin(), ships.end(), std::greater<int>());
 
-			bool is_vertical = rand() % 2;
-			int x = rand() % size_ + 1;
-			int y = rand() % size_ + 1;
+    int totalAttempts = 0;
+    bool allPlaced = false;
 
-			if (CanPlaceShip(x, y, i, is_vertical)) {
-				Ship new_ship(i, is_vertical, x, y);
-				ships_.push_back(new_ship);
-				std::cout << "ship create " << new_ship.GetShipSize() << "\n";
-				placed = true;
-			}
-		}
-	}
+    while (!allPlaced && totalAttempts < max_attempts * 2) {
+        ClearField();
+        ships_.clear();
+        allPlaced = true;
+
+        for (int size : ships) {
+            bool placed = false;
+            int attempts = 0;
+
+            bool orientations[2] = { false, true };
+            std::random_shuffle(orientations, orientations + 2);
+
+            while (!placed && attempts < max_attempts) {
+                attempts++;
+                totalAttempts++;
+
+                for (bool is_vertical : orientations) {
+                    int maxCoord = size_ - size;
+                    if (maxCoord < 0) continue;
+
+                    int x = rand() % (maxCoord + 1);
+                    int y = rand() % (maxCoord + 1);
+
+                    if (CanPlaceShip(x, y, size, is_vertical)) {
+                        Ship new_ship(size, is_vertical, x, y);
+                        ships_.push_back(new_ship);
+                        PlaceShip(new_ship);
+                        placed = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!placed) {
+                allPlaced = false;
+                break;
+            }
+        }
+
+        if (allPlaced) {
+            return;
+        }
+    }
 }
 
 
@@ -64,8 +94,23 @@ bool Field::CanPlaceShip(int x, int y, int size, bool is_vertical) const {
 }
 
 
+void Field::PlaceShip(const Ship& ship) {
+	for (const Cell& cell : ship.GetShipCells()) {
+		int x = cell.GetX();
+		int y = cell.GetY();
+		if (x >= 0 && x < size_ && y >= 0 && y < size_) {
+			field_[y][x].SetCellStatus(Cell::CellStatus::SHIP);
+		}
+	}
+}
+
+
 void Field::ClearField() {
-	std::cout << "\n";
+	for (auto& row : field_) {
+		for (Cell& cell : row) {
+			cell.SetCellStatus(Cell::CellStatus::EMPTY);
+		}
+	}
 }
 
 

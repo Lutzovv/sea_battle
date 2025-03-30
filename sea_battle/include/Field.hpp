@@ -4,6 +4,7 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <algorithm>
 #include "Ship.hpp"
 
 class Field {
@@ -22,6 +23,7 @@ private:
 	bool is_ships_destroy_;
 
 	bool CanPlaceShip(int x, int y, int size, bool is_vertical) const;
+	void PlaceShip(const Ship& ship);
 };
 
 #endif // !_FIELD_HPP_

@@ -41,7 +41,7 @@
     <ClCompile Include="src\Field.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="src\Shup.cpp">
+    <ClCompile Include="src\Ship.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
