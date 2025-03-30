@@ -1,14 +1,6 @@
-#include "./include/Field.hpp"
+#include "./include/Game.hpp"
 
 int main() {
-	int size = 10;
-	Field f(10);
-	f.GenerateShips();
-
-	for (int i = 0; i < 10; i++) {
-		for (int j = 0; j < 10; j++) {
-			std::cout << f(i, j);
-		}
-		std::cout << "\n";
-	}
+	Game game(10);
+	game.StartGame();
 }

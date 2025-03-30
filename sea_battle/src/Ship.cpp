@@ -32,8 +32,8 @@ int Ship::GetShipSize() const {
 
 
 bool Ship::IsDestroy() const {
-	for (int i{}; i < ship_size_; i++) {
-		if (ship_[i].GetCellStatus() != Cell::CellStatus::HIT) {
+	for (const Cell& cell : ship_) {
+		if (cell.GetCellStatus() != Cell::CellStatus::HIT) {
 			return false;
 		}
 	}

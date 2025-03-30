@@ -13,8 +13,6 @@ Field::Field(int size) {
 
 
 void Field::GenerateShips() {
-    srand(time(NULL));
-
     std::vector<int> ships = { 4, 3, 3, 2, 2, 2, 1, 1, 1, 1 };
     const int max_attempts = 1000;
 
@@ -114,6 +112,31 @@ void Field::ClearField() {
 }
 
 
+bool Field::IsShipsDestroy() const {
+    for (Ship ship : ships_) {
+        if (!ship.IsDestroy()) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+int Field::GetSize() const {
+    return size_;
+}
+
+
+std::vector<Ship> Field::GetShips() const {
+    return ships_;
+}
+
+
 Cell& Field::operator()(int y, int x) {
 	return field_[y][x];
+}
+
+
+const Cell& Field::operator()(int y, int x) const {
+    return field_[y][x];
 }

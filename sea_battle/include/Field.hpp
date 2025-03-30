@@ -13,8 +13,12 @@ public:
 
 	void GenerateShips();
 	void ClearField();
+	bool IsShipsDestroy() const;
+	int GetSize() const;
+	std::vector<Ship> GetShips() const;
 
 	Cell& operator()(int y, int x);
+	const Cell& operator()(int y, int x) const;
 
 private:
 	int size_;
