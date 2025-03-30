@@ -7,15 +7,17 @@ BotPlayer::BotPlayer(int size) : field_(size) {
 
 void BotPlayer::MakeMove(Field& opponentField) {
     int x, y;
-
-    x = rand() % opponentField.GetSize();
-    y = rand() % opponentField.GetSize();
+    do {
+        x = rand() % opponentField.GetSize();
+        y = rand() % opponentField.GetSize();
+    } while (opponentField(y, x).GetCellStatus() == Cell::CellStatus::HIT ||
+        opponentField(y, x).GetCellStatus() == Cell::CellStatus::MISS);
 
     Cell& cell = opponentField(y, x);
     if (cell.GetCellStatus() == Cell::CellStatus::SHIP) {
         cell.SetCellStatus(Cell::CellStatus::HIT);
     }
-    else if (cell.GetCellStatus() == Cell::CellStatus::EMPTY) {
+    else {
         cell.SetCellStatus(Cell::CellStatus::MISS);
     }
 }

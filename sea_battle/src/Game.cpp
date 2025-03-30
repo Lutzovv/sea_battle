@@ -25,7 +25,7 @@ void Game::StartGame() {
                 if (!ship.IsDestroy()) {
                     all_destroyed = false;
                     break;
-                }
+                } 
             }
 
 
@@ -90,7 +90,6 @@ void Game::DrawFields() {
             else {
                 std::cout << cell << " ";
             }
-            std::cout << cell << " ";
         }
         std::cout << "\n";
     }

@@ -113,7 +113,7 @@ void Field::ClearField() {
 
 
 bool Field::IsShipsDestroy() const {
-    for (Ship ship : ships_) {
+    for (const Ship& ship : ships_) {
         if (!ship.IsDestroy()) {
             return false;
         }

@@ -4,14 +4,14 @@ Ship::Ship(int size, bool is_vertical, int x, int y) {
 	if (is_vertical) {
 		for (int i{}; i < size; i++) {
 			if (y + i >= 0) {
-				ship_.push_back(Cell(x, y + i));
+				ship_.push_back(Cell(x, y + i, Cell::CellStatus::SHIP));
 			}
 		}
 	}
 	else {
 		for (int i{}; i < size; i++) {
 			if (x + i >= 0) {
-				ship_.push_back(Cell(x + i, y));
+				ship_.push_back(Cell(x + i, y, Cell::CellStatus::SHIP));
 			}
 		}
 	}
